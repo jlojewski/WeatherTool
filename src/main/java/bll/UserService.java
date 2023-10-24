@@ -30,12 +30,11 @@ public class UserService {
         return currentUser;
     }
 
-    public void setCurentUser(User currentUser) {
+    public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
     public boolean checkIfUserExists(String loginToCheck) {
-
         if (userDAO.findUser(loginToCheck).isPresent()) {
 
             return true;
@@ -44,14 +43,21 @@ public class UserService {
         }
     }
 
-    public void createDefaultUsers (String login, String password, String defaultCity, Integer defaultDays) {
-        if (checkIfUserExists(login) == true) {
+    public void initializeDefaultUsers() {
+        createDefaultUsers(USER_1_LOGIN, USER_1_PASSWORD, USER_1_PASSWORD, USER_1_DEFAULT_NUMBER_OF_DAYS);
+        createDefaultUsers(USER_2_LOGIN, USER_2_PASSWORD, USER_2_PASSWORD, USER_2_DEFAULT_NUMBER_OF_DAYS);
+
+    }
+
+
+        public void createDefaultUsers (String login, String password, String defaultCity, Integer defaultDays) {
+        if (checkIfUserExists(login) == false) {
         userDAO.addNewUser(login, password, defaultCity, defaultDays);
         }
     }
 // tu skonczyles - zrob metode do logowania usera; pewnie dwa ify?
 
-    public boolean login(String login, String password) {
+    public boolean logIn(String login, String password) {
 
         Optional<User> user = userDAO.findUser(login);
         String foundPassword = null;

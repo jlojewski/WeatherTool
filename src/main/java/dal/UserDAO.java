@@ -42,8 +42,8 @@ public class UserDAO {
         session.beginTransaction();
 
 //        Query loginQuery = session.createQuery(From Users )
-        Query loginQuery = session.createQuery("FROM User WHERE login = :login", User.class);
-        loginQuery.setParameter("login", login);
+        Query loginQuery = session.createQuery("FROM User WHERE login = :user_login", User.class);
+        loginQuery.setParameter("user_login", login);
 
         User foundUser = (User) loginQuery.getSingleResult();
 
